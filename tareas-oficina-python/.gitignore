@@ -1,0 +1,30 @@
+# Carpetas de PyInstaller
+build/
+dist/
+comprimidas/
+
+# Archivos específicos de PyInstaller
+*.spec
+
+# Archivos de audio e imágenes/documentos a ignorar
+*.aac
+*.m4a
+*.mp3
+*.pdf
+*.jpg
+*.jpeg
+*.xlsx
+*.exe
+
+
+# Bytecode de Python
+__pycache__/
+*.py[cod]
+
+# Entornos virtuales
+venv/
+.env/
+
+# Otros comunes
+.DS_Store       # macOS
+.thumbs.db      # Windows
