@@ -1,54 +1,96 @@
-# Script hecho en Python para comprimir imágenes, pasarlas a PDF y unirlas en un solo archivo.
+# 📄 Script: Conversor de Imágenes a PDF con Carátula y Compresión Final
 
-Este script de Python toma las imágenes que hay en el directorio donde se ejecuta, las comprime, las convierte a PDF y luego las une en un solo archivo PDF.
+Este script convierte imágenes (JPG, PNG, JPEG) en un único archivo PDF horizontal A4, les aplica compresión, y opcionalmente antepone una carátula si encuentra el archivo `CARATULA.PDF` en la misma carpeta.
 
-También coloca en la primera página del archivo resultante una carátulas, que deberá ser un archivo llamado ```CARATULA.PDF``` que deberá estar en el directorio donde se ejecuta el script.
+---
 
-Para que el script funcione en Windows 11 se deben instalar estas bibliotecas de Python:
+## ✅ Requisitos
 
-1. Pillow
-2. FPDF
-3. PyDF
+### Librerías de Python (instalar una vez)
 
-```
-pip install pillow fpdf pypdf
+Abre la terminal o consola y ejecuta:
 
-```
-
-También se deberá instalar en Windows 11 la aplicación ```Ghostcript``` que se encuentra en esta dirección web: https://ghostscript.com/releases/gsdnld.html
-
-Luego de instalada se deberá agregar al Path de windows el directorio donde quedó instalada.
-
-Una vez hecho esto se puede verificar en Windows que todo esté instalado:
-
-```
-python -c "import PIL, fpdf, pypdf; print('Librerías OK')"
-
-gswin64c -v  # En Windows (debe mostrar la versión de Ghostscript)
-
+```bash
+pip install pillow fpdf PyPDF2
 ```
 
-## Ejecutar el script desde cualquier directorio.
+### Ghostscript
 
-Para poder ejecutar el script desde cualquier directorio, se debe hacer lo siguiente:
+Ghostscript se usa para comprimir el PDF final. Debes instalarlo dependiendo del sistema operativo:
 
-1. Copiar ese script y otros que se quieran en un directorio concreto. Por ejemplo ```C:\Juzgado\Scripts```
+- **Windows**:  
+  Descarga desde: https://www.ghostscript.com/download/gsdnld.html  
+  Asegúrate de agregar `gswin64c.exe` (usualmente ubicado en `C:\Program Files\gs\...\bin`) al **PATH del sistema**.
 
-2. Crear un archivo llamado ```jpgcompresspdf.bat``` o algo así, con el siguiente código:
+- **macOS**:  
+  Si tienes [Homebrew](https://brew.sh/) instalado, puedes hacer:
 
+  ```bash
+  brew install ghostscript
+  ```
+
+---
+
+## 📂 Archivos esperados
+
+Coloca este script en una carpeta junto con las imágenes a convertir. También puedes incluir un archivo llamado:
+
+- `CARATULA.PDF` (opcional): Se usará como la primera página del PDF.
+
+---
+
+## 🚀 ¿Qué hace el script?
+
+1. Comprime las imágenes sin perder demasiada calidad.
+2. Convierte las imágenes comprimidas a un PDF horizontal con márgenes.
+3. Si existe `CARATULA.PDF`, lo antepone al PDF generado.
+4. Comprime el PDF final con Ghostscript.
+5. El resultado final es un archivo llamado `resultado.pdf`.
+
+---
+
+## ⚠️ Notas importantes
+
+### Windows
+
+- El script ya detecta si estás en Windows (`os.name == "nt"`) y usa `gswin64c`.
+- Asegúrate de que el nombre del archivo sea **exactamente** `CARATULA.PDF` (sin `.pdf.pdf`).
+- No guardes ni ejecutes el script en carpetas protegidas como `C:\Archivos de programa`.
+
+### macOS
+
+- El script utiliza `gs` como comando para Ghostscript (funciona bien con Homebrew).
+- Todas las rutas se manejan automáticamente con `os.path`.
+
+---
+
+## 📘 Ejecución
+
+### Windows (doble clic o desde terminal)
+
+```bash
+python nombre_del_script.py
 ```
-@echo off
-python "D:\Usuarios\Javier\Proyectos-Dev\Python - Aprendiendo\jpg-compress-pdf\jpg-to-pdf-2.py" %*
 
+### macOS/Linux (desde Terminal)
+
+```bash
+python3 nombre_del_script.py
 ```
 
-Puede cambiarse ```jpg-to-pdf-2.py``` por cualquier otro nombre que el sctipt tenga.
+---
 
-3. Hecho esto, agrega un valor al Path de variables de entorno de Windows con el directorio donde están los scripts. Para el ejemplo sería ```C:\Juzgado\Scripts```
+## 🧼 Limpieza automática
 
-4. Convertir el script de python en un ejecutable ```.exe``` de Windows.
+El script borra archivos temporales como:
 
-Ejecutar este comando: ```pyinstaller --onefile jpg-to-pdf.py```
+- Imágenes WebP intermedias
+- PDF sin comprimir (`temp_imagenes.pdf`)
+- Copias temporales después de la compresión
 
+---
 
+## 📌 Créditos
 
+Script creado y mejorado por Javier, usando Python para automatizar tareas jurídicas y administrativas de forma eficiente.  
+Versión actual: **Mayo 2025**
