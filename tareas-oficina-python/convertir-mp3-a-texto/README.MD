@@ -8,10 +8,13 @@ Esto tiene que ver con una biblioteca de ChatGpt
 
 1. Instalar *FFMpeg* en esta página: https://ffmpeg.org/download.html
 
-Para istalarlo en Windows 11 se deben seguir estos pasos:
+2. Instalar whisper y torch
+```
+pip install git+https://github.com/openai/whisper.git
+pip install torch
+```
 
-
-2. Instalar en python ```pydub``` con ```pip install pydub```
+3. Instalar en python ```pydub``` con ```pip install pydub```
 
 2.1. 
 
